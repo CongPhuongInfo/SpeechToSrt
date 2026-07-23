@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RootNamespace>SpeechApp</RootNamespace>
+    <StartupObject>SpeechApp.Program</StartupObject>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- System.Speech (SAPI) - chi tieng Anh/Phap/..., khong co tieng Viet, chi chay tren Windows -->
+    <PackageReference Include="System.Speech" Version="8.0.0" />
+
+    <!-- NAudio de doc/convert mp3, wma... sang wav PCM chuan -->
+    <PackageReference Include="NAudio" Version="2.2.1" />
+
+    <!-- Whisper.net (whisper.cpp) - chay offline, ho tro tieng Viet tot hon nhieu -->
+    <PackageReference Include="Whisper.net" Version="1.9.1" />
+    <PackageReference Include="Whisper.net.Runtime" Version="1.9.1" />
+  </ItemGroup>
+
+</Project>
