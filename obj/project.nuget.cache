@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ky4Z+pD7N2Q=",
+  "dgSpecHash": "nmmYw+IMvcs=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Downloads\\SpeechApp_source_23072026\\SpeechApp.vbproj",
+  "projectFilePath": "D:\\Source Code\\Tool-Video\\SpeechToSrt\\SpeechApp.vbproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.ai.abstractions\\10.2.0\\microsoft.extensions.ai.abstractions.10.2.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
