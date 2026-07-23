@@ -1,45 +1,44 @@
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-arm64\whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-arm64\ggml-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-arm64\ggml-base-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-arm64\ggml-cpu-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x64\whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x64\ggml-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x64\ggml-base-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x64\ggml-cpu-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x86\whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x86\ggml-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x86\ggml-base-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win-x86\ggml-cpu-whisper.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\SpeechApp.exe
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\SpeechApp.deps.json
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\SpeechApp.runtimeconfig.json
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\SpeechApp.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\SpeechApp.pdb
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\Microsoft.Extensions.AI.Abstractions.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.Asio.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.Core.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.Midi.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.Wasapi.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.WinForms.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\NAudio.WinMM.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\System.IO.Pipelines.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\System.Speech.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\System.Text.Encodings.Web.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\System.Text.Json.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\Whisper.net.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win\lib\net8.0\System.Speech.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
-D:\Source Code\Tool-Video\SpeechToSrt\bin\Release\net9.0-windows\runtimes\win\lib\net9.0\System.Text.Encodings.Web.dll
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.vbproj.AssemblyReference.cache
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.GeneratedMSBuildEditorConfig.editorconfig
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.AssemblyInfoInputs.cache
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.AssemblyInfo.vb
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.vbproj.CoreCompileInputs.cache
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.sourcelink.json
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.vbproj.Up2Date
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.dll
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\refint\SpeechApp.dll
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.pdb
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\SpeechApp.genruntimeconfig.cache
-D:\Source Code\Tool-Video\SpeechToSrt\obj\Release\net9.0-windows\ref\SpeechApp.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-arm64\whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-arm64\ggml-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-arm64\ggml-base-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-arm64\ggml-cpu-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x64\whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x64\ggml-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x64\ggml-base-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x64\ggml-cpu-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x86\whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x86\ggml-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x86\ggml-base-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win-x86\ggml-cpu-whisper.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\SpeechApp.exe
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\SpeechApp.deps.json
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\SpeechApp.runtimeconfig.json
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\SpeechApp.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\SpeechApp.pdb
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\Microsoft.Extensions.AI.Abstractions.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.Asio.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.Core.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.Midi.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.Wasapi.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.WinForms.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\NAudio.WinMM.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\System.IO.Pipelines.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\System.Speech.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\System.Text.Encodings.Web.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\System.Text.Json.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\Whisper.net.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win\lib\net8.0\System.Speech.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\bin\Release\net9.0-windows\runtimes\win\lib\net9.0\System.Text.Encodings.Web.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.vbproj.AssemblyReference.cache
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.AssemblyInfoInputs.cache
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.AssemblyInfo.vb
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.vbproj.CoreCompileInputs.cache
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.vbproj.Up2Date
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\refint\SpeechApp.dll
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.pdb
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\SpeechApp.genruntimeconfig.cache
+C:\Users\Administrator\Downloads\SpeechApp_source_23072026\obj\Release\net9.0-windows\ref\SpeechApp.dll

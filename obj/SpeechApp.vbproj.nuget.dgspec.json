@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Source Code\\Tool-Video\\SpeechToSrt\\SpeechApp.vbproj": {}
+    "C:\\Users\\Administrator\\Downloads\\SpeechApp_source_23072026\\SpeechApp.vbproj": {}
   },
   "projects": {
-    "D:\\Source Code\\Tool-Video\\SpeechToSrt\\SpeechApp.vbproj": {
+    "C:\\Users\\Administrator\\Downloads\\SpeechApp_source_23072026\\SpeechApp.vbproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Source Code\\Tool-Video\\SpeechToSrt\\SpeechApp.vbproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Downloads\\SpeechApp_source_23072026\\SpeechApp.vbproj",
         "projectName": "SpeechApp",
-        "projectPath": "D:\\Source Code\\Tool-Video\\SpeechToSrt\\SpeechApp.vbproj",
+        "projectPath": "C:\\Users\\Administrator\\Downloads\\SpeechApp_source_23072026\\SpeechApp.vbproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\Source Code\\Tool-Video\\SpeechToSrt\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Downloads\\SpeechApp_source_23072026\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"

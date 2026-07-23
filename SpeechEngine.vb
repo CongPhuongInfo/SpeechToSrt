@@ -6,9 +6,29 @@ Imports NAudio.Wave
 Imports Whisper.net
 Imports Whisper.net.Ggml
 
+' Một câu/đoạn đã nhận diện, kèm mốc thời gian bắt đầu-kết thúc (dùng để xuất SRT).
+Public Class SpeechSegment
+    Public Property Start As TimeSpan
+    Public Property [End] As TimeSpan
+    Public Property Text As String
+End Class
+
+' Kết quả trả về sau khi nhận diện: toàn bộ văn bản + danh sách từng câu có timestamp.
+' Với SAPI, Segments sẽ rỗng vì engine này không cung cấp timestamp đáng tin cậy theo câu.
+Public Class RecognitionResult
+    Public Property FullText As String
+    Public Property Segments As New List(Of SpeechSegment)()
+
+    Public ReadOnly Property HasTimestamps As Boolean
+        Get
+            Return Segments IsNot Nothing AndAlso Segments.Count > 0
+        End Get
+    End Property
+End Class
+
 ' ==================== Toàn bộ logic nhận diện giọng nói ====================
 ' Tách riêng khỏi Form1 để UI chỉ lo hiển thị, còn module này lo xử lý.
-' log   : dùng để in các dòng log chi tiết (kèm timestamp do Form1 tự thêm)
+' log      : dùng để in các dòng log chi tiết (kèm timestamp do Form1 tự thêm)
 ' progress : dùng để báo % tiến trình (chỉ áp dụng cho Whisper, vì SAPI không
 '            có cách nào biết trước % chính xác)
 Module SpeechEngine
@@ -16,8 +36,9 @@ Module SpeechEngine
     ' ==================== WHISPER (offline, hỗ trợ tiếng Việt) ====================
 
     Public Async Function RecognizeWithWhisperAsync(filePath As String,
+                                                      languageCode As String,
                                                       log As IProgress(Of String),
-                                                      progress As IProgress(Of Integer)) As Task(Of String)
+                                                      progress As IProgress(Of Integer)) As Task(Of RecognitionResult)
         Dim wavPath As String = Nothing
         Dim modelPath As String = IO.Path.Combine(AppContext.BaseDirectory, "models", "ggml-base.bin")
 
@@ -33,13 +54,14 @@ Module SpeechEngine
                 log.Report($"Thời lượng file: {TimeSpan.FromMilliseconds(totalDurationMs):hh\:mm\:ss}")
             End If
 
+            log.Report($"Ngôn ngữ đã chọn: {languageCode}")
+
             Dim sb As New Text.StringBuilder()
+            Dim segments As New List(Of SpeechSegment)()
 
             Using whisperFactory As WhisperFactory = WhisperFactory.FromPath(modelPath)
-                ' "auto" = tự nhận diện ngôn ngữ. Có thể ép cứng "vi" cho tiếng Việt
-                ' hoặc "en" cho tiếng Anh nếu muốn nhanh hơn và chính xác hơn.
                 Using processor As WhisperProcessor = whisperFactory.CreateBuilder().
-                                                  WithLanguage("auto").
+                                                  WithLanguage(languageCode).
                                                   Build()
 
                     log.Report("Đang nhận diện giọng nói bằng Whisper...")
@@ -49,6 +71,12 @@ Module SpeechEngine
                             Dim result = asyncEnum.Current
                             log.Report($"[{result.Start}->{result.End}] {result.Text}")
                             sb.AppendLine(result.Text)
+
+                            segments.Add(New SpeechSegment With {
+                                .Start = result.Start,
+                                .[End] = result.End,
+                                .Text = result.Text.Trim()
+                            })
 
                             If totalDurationMs > 0 Then
                                 Dim percent As Integer = CInt(Math.Min(100, (result.End.TotalMilliseconds / totalDurationMs) * 100))
@@ -62,7 +90,11 @@ Module SpeechEngine
 
             progress.Report(100)
             log.Report("Đang nhận diện Whisper hoàn tất.")
-            Return sb.ToString().Trim()
+
+            Return New RecognitionResult With {
+                .FullText = sb.ToString().Trim(),
+                .Segments = segments
+            }
         Finally
             If wavPath IsNot Nothing AndAlso IO.File.Exists(wavPath) Then
                 Try
@@ -97,7 +129,8 @@ Module SpeechEngine
 
     ' ==================== SAPI / System.Speech (dự phòng, chỉ tiếng Anh...) ====================
     ' Hàm này chạy đồng bộ (blocking), Form1 sẽ gọi qua Task.Run để không treo UI.
-    Public Function RecognizeWithSapi(filePath As String, log As IProgress(Of String)) As String
+    ' Không có timestamp đáng tin cậy theo câu nên Segments trả về rỗng (không xuất được SRT).
+    Public Function RecognizeWithSapi(filePath As String, log As IProgress(Of String)) As RecognitionResult
         Dim wavPath As String = filePath
         Dim sb As New Text.StringBuilder()
         Dim readyToExit As New ManualResetEvent(False)
@@ -132,7 +165,10 @@ Module SpeechEngine
             End Using
 
             log.Report("Nhận diện SAPI hoàn tất.")
-            Return sb.ToString().Trim()
+            Return New RecognitionResult With {
+                .FullText = sb.ToString().Trim(),
+                .Segments = New List(Of SpeechSegment)()
+            }
         Finally
             If wavPath <> filePath AndAlso IO.File.Exists(wavPath) Then
                 Try
@@ -171,6 +207,27 @@ Module SpeechEngine
         Catch
             Return 0
         End Try
+    End Function
+
+    ' ==================== Xuất SRT ====================
+
+    ' Định dạng mốc thời gian theo chuẩn SRT: HH:MM:SS,mmm
+    Private Function FormatSrtTime(t As TimeSpan) As String
+        Dim totalHours As Integer = CInt(Math.Floor(t.TotalHours))
+        Return $"{totalHours:00}:{t.Minutes:00}:{t.Seconds:00},{t.Milliseconds:000}"
+    End Function
+
+    ' Ghép danh sách segment thành nội dung file .srt hoàn chỉnh.
+    Public Function BuildSrtContent(segments As List(Of SpeechSegment)) As String
+        Dim sb As New Text.StringBuilder()
+        For i As Integer = 0 To segments.Count - 1
+            Dim seg = segments(i)
+            sb.AppendLine((i + 1).ToString())
+            sb.AppendLine($"{FormatSrtTime(seg.Start)} --> {FormatSrtTime(seg.End)}")
+            sb.AppendLine(seg.Text)
+            sb.AppendLine()
+        Next
+        Return sb.ToString()
     End Function
 
 End Module

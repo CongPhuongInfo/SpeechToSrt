@@ -1,4 +1,6 @@
+Imports System.Collections.Generic
 Imports System.Drawing
+Imports System.Linq
 Imports System.Threading.Tasks
 Imports System.Windows.Forms
 
@@ -10,9 +12,25 @@ Public Class Form1
     Private grpEngine As GroupBox
     Private rbWhisper As RadioButton
     Private rbSapi As RadioButton
+    Private lblLanguage As Label
+    Private cmbLanguage As ComboBox
+    Private ReadOnly languageMap As New Dictionary(Of String, String) From {
+        {"Tự động phát hiện", "auto"},
+        {"Tiếng Việt", "vi"},
+        {"Tiếng Anh", "en"},
+        {"Tiếng Trung", "zh"},
+        {"Tiếng Nhật", "ja"},
+        {"Tiếng Hàn", "ko"},
+        {"Tiếng Pháp", "fr"},
+        {"Tiếng Đức", "de"},
+        {"Tiếng Nga", "ru"},
+        {"Tiếng Thái", "th"}
+    }
     Private btnStart As Button
     Private btnSave As Button
+    Private btnExportSrt As Button
     Private btnClearLog As Button
+    Private lastSegments As New List(Of SpeechSegment)()
     Private progressBar As ProgressBar
     Private lblStatus As Label
     Private splitContainer As SplitContainer
@@ -33,7 +51,7 @@ Public Class Form1
         ' ---------- Khu vực chọn file + engine ----------
         Dim topPanel As New Panel()
         topPanel.Dock = DockStyle.Top
-        topPanel.Height = 110
+        topPanel.Height = 150
 
         Dim lblFile As New Label()
         lblFile.Text = "File âm thanh:"
@@ -71,11 +89,25 @@ Public Class Form1
 
         grpEngine.Controls.Add(rbWhisper)
         grpEngine.Controls.Add(rbSapi)
+        AddHandler rbWhisper.CheckedChanged, AddressOf EngineChanged
+        AddHandler rbSapi.CheckedChanged, AddressOf EngineChanged
+
+        lblLanguage = New Label()
+        lblLanguage.Text = "Ngôn ngữ (Whisper):"
+        lblLanguage.Location = New Point(420, 68)
+        lblLanguage.AutoSize = True
+
+        cmbLanguage = New ComboBox()
+        cmbLanguage.DropDownStyle = ComboBoxStyle.DropDownList
+        cmbLanguage.Location = New Point(420, 86)
+        cmbLanguage.Width = 200
+        cmbLanguage.Items.AddRange(languageMap.Keys.ToArray())
+        cmbLanguage.SelectedIndex = 0
 
         btnStart = New Button()
         btnStart.Text = "Bắt đầu nhận diện"
-        btnStart.Location = New Point(420, 66)
-        btnStart.Width = 160
+        btnStart.Location = New Point(10, 112)
+        btnStart.Width = 180
         btnStart.Height = 32
         AddHandler btnStart.Click, AddressOf btnStart_Click
 
@@ -83,6 +115,8 @@ Public Class Form1
         topPanel.Controls.Add(txtFilePath)
         topPanel.Controls.Add(btnBrowse)
         topPanel.Controls.Add(grpEngine)
+        topPanel.Controls.Add(lblLanguage)
+        topPanel.Controls.Add(cmbLanguage)
         topPanel.Controls.Add(btnStart)
 
         ' ---------- Thanh tiến trình + trạng thái ----------
@@ -116,13 +150,21 @@ Public Class Form1
         btnSave.Width = 130
         AddHandler btnSave.Click, AddressOf btnSave_Click
 
+        btnExportSrt = New Button()
+        btnExportSrt.Text = "Xuất SRT..."
+        btnExportSrt.Location = New Point(150, 6)
+        btnExportSrt.Width = 110
+        btnExportSrt.Enabled = False
+        AddHandler btnExportSrt.Click, AddressOf btnExportSrt_Click
+
         btnClearLog = New Button()
         btnClearLog.Text = "Xóa log"
-        btnClearLog.Location = New Point(150, 6)
+        btnClearLog.Location = New Point(270, 6)
         btnClearLog.Width = 100
         AddHandler btnClearLog.Click, AddressOf btnClearLog_Click
 
         bottomPanel.Controls.Add(btnSave)
+        bottomPanel.Controls.Add(btnExportSrt)
         bottomPanel.Controls.Add(btnClearLog)
 
         ' ---------- Khu vực kết quả (trên) + log chi tiết (dưới) ----------
@@ -192,6 +234,10 @@ Public Class Form1
         End Using
     End Sub
 
+    Private Sub EngineChanged(sender As Object, e As EventArgs)
+        cmbLanguage.Enabled = rbWhisper.Checked
+    End Sub
+
     Private Async Sub btnStart_Click(sender As Object, e As EventArgs)
         If String.IsNullOrWhiteSpace(txtFilePath.Text) OrElse Not IO.File.Exists(txtFilePath.Text) Then
             MessageBox.Show("Vui lòng chọn file âm thanh hợp lệ.", "Thiếu file", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -200,12 +246,15 @@ Public Class Form1
 
         Dim filePath As String = txtFilePath.Text
         Dim useWhisper As Boolean = rbWhisper.Checked
+        Dim languageCode As String = languageMap(cmbLanguage.SelectedItem.ToString())
 
         SetUiEnabled(False)
         txtLog.Clear()
         txtResult.Clear()
         progressBar.Value = 0
         lblStatus.Text = "Đang xử lý..."
+        lastSegments = New List(Of SpeechSegment)()
+        btnExportSrt.Enabled = False
 
         ' Progress(Of T) tự động chạy callback trên UI thread vì được tạo trên UI thread,
         ' nên AppendLog/UpdateProgress không cần Invoke thủ công.
@@ -213,20 +262,30 @@ Public Class Form1
         Dim progressPercent As New Progress(Of Integer)(AddressOf UpdateProgress)
 
         Try
-            Dim resultText As String
+            Dim result As RecognitionResult
 
             If useWhisper Then
                 progressBar.Style = ProgressBarStyle.Continuous
-                resultText = Await SpeechEngine.RecognizeWithWhisperAsync(filePath, progressLog, progressPercent)
+                result = Await SpeechEngine.RecognizeWithWhisperAsync(filePath, languageCode, progressLog, progressPercent)
             Else
                 ' SAPI không báo % được nên dùng thanh chạy (Marquee) trong lúc xử lý
                 progressBar.Style = ProgressBarStyle.Marquee
-                resultText = Await Task.Run(Function() SpeechEngine.RecognizeWithSapi(filePath, progressLog))
+                result = Await Task.Run(Function() SpeechEngine.RecognizeWithSapi(filePath, progressLog))
                 progressBar.Style = ProgressBarStyle.Continuous
                 progressBar.Value = 100
             End If
 
-            txtResult.Text = resultText
+            txtResult.Text = result.FullText
+            lastSegments = result.Segments
+
+            If result.HasTimestamps Then
+                btnExportSrt.Enabled = True
+                AppendLog($"Có {result.Segments.Count} câu kèm timestamp, có thể xuất SRT.")
+            Else
+                btnExportSrt.Enabled = False
+                AppendLog("Engine này không cung cấp timestamp theo câu nên không xuất được SRT.")
+            End If
+
             lblStatus.Text = "Hoàn tất."
             AppendLog("===== HOÀN TẤT =====")
         Catch ex As Exception
@@ -254,6 +313,24 @@ Public Class Form1
         End Using
     End Sub
 
+    Private Sub btnExportSrt_Click(sender As Object, e As EventArgs)
+        If lastSegments Is Nothing OrElse lastSegments.Count = 0 Then
+            MessageBox.Show("Chưa có dữ liệu timestamp để xuất SRT. Hãy nhận diện bằng Whisper trước.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Using sfd As New SaveFileDialog()
+            sfd.Filter = "SubRip Subtitle (*.srt)|*.srt"
+            sfd.FileName = "phu_de.srt"
+            If sfd.ShowDialog() = DialogResult.OK Then
+                Dim srtContent As String = SpeechEngine.BuildSrtContent(lastSegments)
+                IO.File.WriteAllText(sfd.FileName, srtContent, System.Text.Encoding.UTF8)
+                AppendLog("Đã xuất file SRT: " & sfd.FileName)
+                MessageBox.Show("Đã xuất file SRT.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End Using
+    End Sub
+
     Private Sub btnClearLog_Click(sender As Object, e As EventArgs)
         txtLog.Clear()
     End Sub
@@ -274,6 +351,7 @@ Public Class Form1
         rbWhisper.Enabled = enabled
         rbSapi.Enabled = enabled
         btnSave.Enabled = enabled
+        cmbLanguage.Enabled = enabled AndAlso rbWhisper.Checked
     End Sub
 
 End Class
