@@ -10,7 +10,7 @@ where dotnet >nul 2>nul
 if errorlevel 1 (
     echo [Loi] Khong tim thay .NET SDK.
     echo Cai dat tai: https://dotnet.microsoft.com/download
-    echo Can ban .NET 8 SDK tro len.
+    echo Can ban .NET 9 SDK tro len.
     pause
     exit /b 1
 )
@@ -28,11 +28,11 @@ echo.
 echo ============================================
 echo   Build thanh cong!
 echo ============================================
-echo File .exe nam trong: bin\Release\net8.0-windows\SpeechApp.exe
+echo File .exe nam trong: bin\Release\net9.0-windows\SpeechApp.exe
 echo.
 echo Cach chay:
-echo   run.bat "duong_dan_file_am_thanh.wav"
-echo   hoac: bin\Release\net8.0-windows\SpeechApp.exe "duong_dan_file.mp3"
+echo   run.bat
+echo   hoac chay truc tiep: bin\Release\net9.0-windows\SpeechApp.exe
 echo.
 pause
 exit /b 0
