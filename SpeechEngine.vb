@@ -40,11 +40,13 @@ Module SpeechEngine
                                                       log As IProgress(Of String),
                                                       progress As IProgress(Of Integer)) As Task(Of RecognitionResult)
         Dim wavPath As String = Nothing
-        Dim modelPath As String = IO.Path.Combine(AppContext.BaseDirectory, "models", "ggml-base.bin")
+        'Dim modelPath As String = IO.Path.Combine(AppContext.BaseDirectory, "models", "ggml-base.bin")
+		Dim modelPath As String = IO.Path.Combine(AppContext.BaseDirectory, "models", "GgmlType-Medium.bin")
 
         Try
             log.Report("Đang kiểm tra model Whisper...")
-            Await DownloadModelIfNeeded(modelPath, GgmlType.Base, log)
+            'Await DownloadModelIfNeeded(modelPath, GgmlType.Base, log)
+			Await DownloadModelIfNeeded(modelPath, GgmlType.Medium, log)
 
             log.Report("Đang chuyển đổi audio sang định dạng WAV 16kHz mono...")
             wavPath = ConvertToWav(filePath)

@@ -1,5 +1,9 @@
 # SpeechApp
 
+<p align="center">
+  <img src="SpeechToSrt-Logo.png" width="800">
+</p>
+
 Ứng dụng WinForms (VB.NET, .NET 9) nhận diện giọng nói từ file âm thanh, hỗ trợ nhiều ngôn ngữ qua **Whisper** (offline) hoặc **SAPI** (Windows Speech Recognition), có xuất kết quả ra file `.txt` và phụ đề `.srt`.
 
 ## Tính năng
